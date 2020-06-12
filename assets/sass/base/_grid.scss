@@ -1,0 +1,115 @@
+$bp-small: 800px;
+$bp-medium: 1024px;
+$bp-large: 1200px;
+$gutter: 0px;
+$content-max-width-large: 1400px;
+$content-max-width: 1200px;
+$grid-padding-small: 16px;
+$grid-padding-medium: 32px;
+$grid-padding-large: 64px;
+
+//Generate grid column widths and offsets
+@mixin grid-generator($grid-columns) {
+  @for $i from 1 through $grid-columns {
+    .grid__col-#{$i} {
+      width: calc(
+        #{percentage($i / $grid-columns)} -
+          #{$gutter} +
+          (#{$gutter} / #{$grid-columns} * #{$i})
+      );
+
+      @media (max-width: $bp-small) {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+
+    .grid__offset-#{$i} {
+      margin-left: percentage($i / $grid-columns);
+    }
+  }
+}
+
+.container {
+  max-width: $content-max-width;
+  margin: auto;
+  padding-left: $grid-padding-medium;
+  padding-right: $grid-padding-medium;
+
+  &--wide {
+    max-width: $content-max-width-large;
+  }
+
+  &--no-pad {
+    @media (min-width: $bp-small) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @media (min-width: $bp-large) {
+      padding-left: 0;
+      padding-right: 0;
+      max-width: calc(#{$content-max-width} - #{$grid-padding-large} * 2);
+    }
+
+  }
+
+  @media (min-width: $bp-small) {
+    padding-left: $grid-padding-medium;
+    padding-right: $grid-padding-medium;
+  }
+
+  @media (min-width: $bp-large) {
+    padding-left: $grid-padding-large;
+    padding-right: $grid-padding-large;
+  }
+}
+
+.grid {
+  max-width: $content-max-width;
+  margin: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: $grid-padding-medium;
+  padding-right: $grid-padding-medium;
+
+  &--left-margin-only {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    max-width: none;
+  }
+
+  &--wide {
+    max-width: $content-max-width-large;
+  }
+
+  &__col {
+    box-sizing: border-box;
+    margin-right: $gutter;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: $bp-small) {
+    flex-direction: column;
+
+    &--break-reverse {
+      flex-direction: column-reverse;
+    }
+  }
+
+  @media (min-width: $bp-small) {
+    padding-left: $grid-padding-medium;
+    padding-right: $grid-padding-medium;
+  }
+
+  @media (min-width: $bp-large) {
+    padding-left: $grid-padding-large;
+    padding-right: $grid-padding-large;
+  }
+}
+
+@include grid-generator(12);

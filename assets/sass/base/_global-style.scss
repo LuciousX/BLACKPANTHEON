@@ -1,0 +1,28 @@
+html{
+  min-height:100%;
+  position:relative;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+*:focus {
+  outline: none;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+
+  &.no-scroll {
+    height: 100vh;
+    overflow: hidden;
+  }
+}

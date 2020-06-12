@@ -1,0 +1,10 @@
+// Mixin based z-index management. Use powers of 10 to make the heierarchy obvious
+
+$z-index: (
+  placeholder1: 10,
+  placeholder2: 100,
+);
+
+@function z-index($key) {
+  @return map-get($z-index, $key);
+}
